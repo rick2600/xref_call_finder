@@ -63,7 +63,7 @@ def print_calls(bv, calls_list):
             padlen = 0
             output += "\n"
 
-    show_plain_text_report("Calls", output)
+    show_plain_text_report("Xref Call Finder", output)
 
 
 def get_call_path_to(bv, function):
