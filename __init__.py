@@ -3,19 +3,18 @@ from binaryninja import *
 
 # get the function where an address is in
 def get_function_for(bv, address):
-    function = bv.get_function_at(bv.platform, address)
+    function = bv.get_function_at(plat=bv.platform, addr=address)
     if function == None:
         function_address = bv.get_previous_function_start_before(address)
-        function = bv.get_function_at(bv.platform, function_address)
+        function = bv.get_function_at(plat=bv.platform, addr=function_address)
     return function
 
 
 #check if xref is a call
 def is_xref_a_call(bv, xref):
     function = xref.function
-    low_level_il = function.get_low_level_il_at(bv.platform.arch, xref.address)
-    il = function.low_level_il[low_level_il]
-    return il.operation_name == "LLIL_CALL"
+    il = function.get_low_level_il_at(arch=bv.platform.arch, addr=xref.address)
+    return il.operation.name == "LLIL_CALL"
 
 
 def get_path_recursive(bv, function, db):
